@@ -12,7 +12,11 @@
           <span class="header-action"></span>
         </div>
         <!-- Product Items -->
-        <div v-for="(item, index) in products" :key="index" class="product-item">
+        <div
+          v-for="(item, index) in products"
+          :key="index"
+          class="product-item"
+        >
           <span>{{ item.name }}</span>
           <span>{{ item.amount }}</span>
           <span>{{ item.price }}kr</span>
@@ -59,9 +63,11 @@
       </div>
       <div class="button-container">
         <FormButton type="button" @click="goBack">Tilbake</FormButton>
-        <FormButton type="submit" @click="finishQuestionnaire">Neste</FormButton>
+        <FormButton type="submit" @click="finishQuestionnaire"
+          >Neste</FormButton
+        >
       </div>
-      </div>
+    </div>
     <div v-else>
       <p>Loading...</p>
     </div>

@@ -147,7 +147,6 @@ const createSavingsGoal = async (savingGoalData: SavingGoalCreation) => {
       console.log("Saving goal created:", newSavingGoal);
       alert("Sparemål opprettet!");
       router.push("/saving-goals");
-      window.location.reload();
     }
   } catch (error) {
     console.error("Error creating saving goal:", error);

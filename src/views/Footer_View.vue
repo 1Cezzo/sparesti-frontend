@@ -19,7 +19,7 @@
       <RouterLink
         class="phone-bar-item"
         :class="{ 'phone-bar-item-dark': darkMode }"
-        to="/budget"
+        to="/budgetpage"
       >
         <i :class="darkMode ? 'icon-budget-dark' : 'icon-budget'"></i>
       </RouterLink>
