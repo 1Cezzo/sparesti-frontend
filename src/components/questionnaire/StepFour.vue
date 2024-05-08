@@ -1,64 +1,69 @@
 <template>
   <div class="form-container">
-    <h2>Vi trenger Litt mer info</h2>
-    <p>Legg til produkter du vil spare på</p>
-    <div class="product-list">
-      <!-- Product Header -->
-      <div class="product-header">
-        <span class="header-name">Navn</span>
-        <span class="header-amount">Mengde</span>
-        <span class="header-price">Enhets pris</span>
-        <span class="header-action"></span>
+    <div v-if="!isLoading">
+      <h2>Vi trenger Litt mer info</h2>
+      <p>Legg til produkter du vil spare på</p>
+      <div class="product-list">
+        <!-- Product Header -->
+        <div class="product-header">
+          <span class="header-name">Navn</span>
+          <span class="header-amount">Mengde</span>
+          <span class="header-price">Enhets pris</span>
+          <span class="header-action"></span>
+        </div>
+        <!-- Product Items -->
+        <div v-for="(item, index) in products" :key="index" class="product-item">
+          <span>{{ item.name }}</span>
+          <span>{{ item.amount }}</span>
+          <span>{{ item.price }}kr</span>
+          <button @click="removeProduct(index)">X</button>
+        </div>
       </div>
-      <!-- Product Items -->
-      <div v-for="(item, index) in products" :key="index" class="product-item">
-        <span>{{ item.name }}</span>
-        <span>{{ item.amount }}</span>
-        <span>{{ item.price }}kr</span>
-        <button @click="removeProduct(index)">X</button>
-      </div>
-    </div>
-    <!-- New Product Form -->
-    <div class="new-product">
-      <label for="productName" class="form-label">Produktnavn:</label>
-      <input
-        v-model="newProduct.name"
-        placeholder="Produkt"
-        class="new-product-input"
-      />
-      <label for="productAmount" class="form-label">Mengde:</label>
-      <input
-        v-model.number="newProduct.amount"
-        type="number"
-        placeholder="Mengde"
-        class="new-product-input"
-      />
-      <div class="frequency-wrapper">
-        <label for="frequencySelect" class="form-label">Hvor ofte?</label>
-        <select v-model="newProduct.frequency" class="timeunit-select">
-          <option value="daily">Daglig</option>
-          <option value="weekly">Ukentlig</option>
-          <option value="monthly">Månedlig</option>
-        </select>
-      </div>
-      <div class="price-wrapper">
-        <label for="productPrice" class="form-label">Pris per enhet?</label>
+      <!-- New Product Form -->
+      <div class="new-product">
+        <label for="productName" class="form-label">Produktnavn:</label>
         <input
-          v-model="newProduct.price"
-          type="number"
-          placeholder="Enhetspris"
-          class="price-input"
+          v-model="newProduct.name"
+          placeholder="Produkt"
+          class="new-product-input"
         />
-        <span>kr</span>
+        <label for="productAmount" class="form-label">Mengde:</label>
+        <input
+          v-model.number="newProduct.amount"
+          type="number"
+          placeholder="Mengde"
+          class="new-product-input"
+        />
+        <div class="frequency-wrapper">
+          <label for="frequencySelect" class="form-label">Hvor ofte?</label>
+          <select v-model="newProduct.frequency" class="timeunit-select">
+            <option value="daily">Daglig</option>
+            <option value="weekly">Ukentlig</option>
+            <option value="monthly">Månedlig</option>
+          </select>
+        </div>
+        <div class="price-wrapper">
+          <label for="productPrice" class="form-label">Pris per enhet?</label>
+          <input
+            v-model="newProduct.price"
+            type="number"
+            placeholder="Enhetspris"
+            class="price-input"
+          />
+          <span>kr</span>
+        </div>
+        <button @click="addProduct" class="add-button">Add</button>
       </div>
-      <button @click="addProduct" class="add-button">Add</button>
-    </div>
-    <div v-if="formErrors.length" class="error-messages">
-      <div v-for="error in formErrors" :key="error">{{ error }}</div>
-    </div>
-    <div class="button-container">
-      <FormButton type="button" @click="goBack">Tilbake</FormButton>
-      <FormButton type="submit" @click="finishQuestionnaire">Neste</FormButton>
+      <div v-if="formErrors.length" class="error-messages">
+        <div v-for="error in formErrors" :key="error">{{ error }}</div>
+      </div>
+      <div class="button-container">
+        <FormButton type="button" @click="goBack">Tilbake</FormButton>
+        <FormButton type="submit" @click="finishQuestionnaire">Neste</FormButton>
+      </div>
+      </div>
+    <div v-else>
+      <p>Loading...</p>
     </div>
   </div>
 </template>
