@@ -17,6 +17,7 @@
     "serve": "vite preview --host --port 5173"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.2.2",
     "@vueuse/core": "^10.9.0",
     "axios": "^1.6.8",
     "canvas-confetti": "^1.9.3",

@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import { useDark, useToggle } from "@vueuse/core";
 import { RouterView, useRoute } from "vue-router";
+import { inject } from '@vercel/analytics';
 import NAV from "./views/Nav_View.vue";
 import { onMounted, ref, computed } from "vue";
 import FOOTER from "./views/Footer_View.vue";
@@ -44,6 +45,7 @@ const isPhone = ref(false);
 let mql;
 
 onMounted(() => {
+  inject();
   mql = window.matchMedia("(max-width: 480px)");
   isPhone.value = mql.matches;
 
