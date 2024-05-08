@@ -229,46 +229,51 @@ async function createChallenge() {
   }
 
   try {
+    let createdChallengeId;
     if (challengeType.value === "Spare") {
-      createdChallenge.value = await createSavingChallenge({
-        title: challengeTitle.value,
-        description: challengeDescription.value,
-        timeInterval: timeInterval.value.toUpperCase(),
-        difficultyLevel: difficultyLevel.value.toUpperCase(),
-        mediaUrl: emoji.value,
-        targetAmount: targetAmount.value,
-      });
-      addChallengeToUser(Number(createdChallenge.value.id));
-      createdChallenge.value = null;
+      createdChallengeId = (
+        await createSavingChallenge({
+          title: challengeTitle.value,
+          description: challengeDescription.value,
+          timeInterval: timeInterval.value.toUpperCase(),
+          difficultyLevel: difficultyLevel.value.toUpperCase(),
+          mediaUrl: emoji.value,
+          targetAmount: targetAmount.value,
+        })
+      ).id;
     } else if (challengeType.value === "Forbruk") {
-      createdChallenge.value = await createPurchaseChallenge({
-        title: challengeTitle.value,
-        description: challengeDescription.value,
-        timeInterval: timeInterval.value.toUpperCase(),
-        difficultyLevel: difficultyLevel.value.toUpperCase(),
-        mediaUrl: emoji.value,
-        productName: productName.value,
-        productPrice: productPrice.value,
-        targetAmount: quantityLimit.value,
-      });
-      addChallengeToUser(Number(createdChallenge.value.id));
-      createdChallenge.value = null;
+      createdChallengeId = (
+        await createPurchaseChallenge({
+          title: challengeTitle.value,
+          description: challengeDescription.value,
+          timeInterval: timeInterval.value.toUpperCase(),
+          difficultyLevel: difficultyLevel.value.toUpperCase(),
+          mediaUrl: emoji.value,
+          productName: productName.value,
+          productPrice: productPrice.value,
+          targetAmount: quantityLimit.value,
+        })
+      ).id;
     } else if (challengeType.value === "Budsjett") {
-      createdChallenge.value = await createConsumptionChallenge({
-        title: challengeTitle.value,
-        description: challengeDescription.value,
-        targetAmount: targetAmount.value,
-        timeInterval: timeInterval.value.toUpperCase(),
-        difficultyLevel: difficultyLevel.value.toUpperCase(),
-        mediaUrl: emoji.value,
-        productCategory: category.value,
-        reductionPercentage: reductionAmount.value,
-      });
-      addChallengeToUser(Number(createdChallenge.value.id));
-      createdChallenge.value = null;
+      createdChallengeId = (
+        await createConsumptionChallenge({
+          title: challengeTitle.value,
+          description: challengeDescription.value,
+          targetAmount: targetAmount.value,
+          timeInterval: timeInterval.value.toUpperCase(),
+          difficultyLevel: difficultyLevel.value.toUpperCase(),
+          mediaUrl: emoji.value,
+          productCategory: category.value,
+          reductionPercentage: reductionAmount.value,
+        })
+      ).id;
     } else {
       throw new Error("Invalid challenge type");
     }
+
+    // Add challenge to user
+    await addChallengeToUser(Number(createdChallengeId));
+
     // Reset the form fields after successful creation
     alert("Challenge created successfully!");
     resetForm();

@@ -117,23 +117,23 @@ const generateNewChallenge = async () => {
 };
 const emit = defineEmits(["close"]);
 const acceptChallenge = async () => {
-  if (
-    challengeObject.value.productName == undefined &&
-    challengeObject.value.reductionPercentage == undefined
-  ) {
-    await createSavingChallenge(challengeObject.value).then((response) => {
-      addChallengeToUser(Number(response.id));
-    });
-  } else if (challengeObject.value.productName != undefined) {
-    createPurchaseChallenge(challengeObject.value).then((response) => {
-      addChallengeToUser(Number(response.id));
-    });
-  } else {
-    await createConsumptionChallenge(challengeObject.value).then((response) => {
-      addChallengeToUser(Number(response.id));
-    });
+  try {
+    let response;
+    if (
+      challengeObject.value.productName === undefined &&
+      challengeObject.value.reductionPercentage === undefined
+    ) {
+      response = await createSavingChallenge(challengeObject.value);
+    } else if (challengeObject.value.productName !== undefined) {
+      response = await createPurchaseChallenge(challengeObject.value);
+    } else {
+      response = await createConsumptionChallenge(challengeObject.value);
+    }
+    await addChallengeToUser(Number(response.id));
+    window.location.reload();
+  } catch (error) {
+    console.error("Error accepting challenge:", error);
   }
-  window.location.reload();
 };
 </script>
 
