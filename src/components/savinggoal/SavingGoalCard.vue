@@ -251,7 +251,7 @@ function handleImageUpload(event: Event) {
   position: relative;
   max-width: 600px;
   width: 222px;
-  height: 366px;
+  height: 424px;
   margin: auto;
   margin-top: 2%;
   padding: 20px;
