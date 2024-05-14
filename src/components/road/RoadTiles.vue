@@ -539,8 +539,8 @@ watchEffect(() => {
 }
 
 .saving-goal-image {
-  width: 100%;
-  height: auto;
+  min-height: -webkit-fill-available;
+  min-width: -webkit-fill-available;
 }
 
 .emoji {
