@@ -415,11 +415,22 @@ select {
   height: 100%;
 }
 
+@media (max-width: 480px) {
+  #finishButton {
+    bottom: 60px;
+  }
+}
+
+@media (min-width: 481px) {
+  #finishButton {
+    bottom: 5px;
+  }
+}
+
 #finishButton {
   position: absolute;
   width: 200px;
   height: 60px;
-  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
 }
